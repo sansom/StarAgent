@@ -1,0 +1,43 @@
+a {
+	text-decoration: none;
+	color: #4E93CE;
+}
+a:hover {
+	text-decoration: none;
+}
+h3 {
+	font-size: 18px;
+}
+.box-shadow{  
+    filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696',Direction=120, Strength=10);/*for ie6,7,8*/  
+    -moz-box-shadow:5px 5px 15px #969696;/*firefox*/  
+    -webkit-box-shadow:5px 5px 15px #969696;/*webkit*/  
+    box-shadow:5px 5px 15px #969696;/*opera或ie9*/  
+}
+.content {
+	background: #E5E5E8;
+	width: 100%;
+}
+.tabmenu {
+	width: 100%;
+	height: 30px;
+	background: #F2F2F2;
+}
+.menuitem {
+	width: 48%;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	display: inline-block;
+	cursor: pointer;
+	font-size: 16px;
+}
+.menuactive {
+	background: #E5E5E8;
+}
+
+.monitormain {
+	width: 100%;
+	height: 600px;
+	border: none;
+}

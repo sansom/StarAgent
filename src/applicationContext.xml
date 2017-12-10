@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd   
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd   
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd   
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+	default-autowire="byName">
+
+
+	<!-- **************************************** 系统管理   **************************************** -->
+		
+	<bean id="systemAction" class="com.core.jadlsoft.struts.action.xtgl.SystemAction"/>
+	
+	<!-- 用户管理 -->
+	<bean id="userAction" class="com.core.jadlsoft.struts.action.xtgl.UserAction" scope="prototype">
+		<property name="userManager" ref="userManager" />
+		<property name="roleManager" ref="roleManager" />
+	</bean>
+	
+	<!-- 角色管理 -->
+	<bean id="roleAction" class="com.core.jadlsoft.struts.action.xtgl.RoleAction" scope="prototype">
+		<property name="roleManager" ref="roleManager" />
+		<property name="permissManager" ref="permissManager" />
+	</bean>
+	
+	<!-- 权限管理 -->
+	<bean id="permissAction" class="com.core.jadlsoft.struts.action.xtgl.PermissAction" scope="prototype">
+		<property name="permissManager" ref="permissManager" />
+		<property name="gnlbManager" ref="gnlbManager" />
+	</bean>
+	
+	<!-- 功能菜单管理 -->
+	<bean id="gnlbAction" class="com.core.jadlsoft.struts.action.xtgl.GnlbAction" scope="prototype">
+		<property name="gnlbManager" ref="gnlbManager" />
+	</bean>
+	
+	<!-- 登录管理 -->
+	<bean name="loginAction" class="com.core.jadlsoft.struts.action.xtgl.LoginAction" scope="prototype">
+		<property name="userManager" ref="userManager" />
+		<property name="roleManager" ref="roleManager" />
+		<property name="gnlbManager" ref="gnlbManager" />
+	</bean>
+	
+	<bean id="loginManager" class="com.core.jadlsoft.business.xtgl.LoginManager" parent="baseManager" scope="prototype" />
+	<bean id="userManager" class="com.core.jadlsoft.business.xtgl.impl.UserManager" parent="baseManager" scope="prototype" />
+	<bean id="roleManager" class="com.core.jadlsoft.business.xtgl.impl.RoleManager" parent="baseManager" scope="prototype" />
+	<bean id="permissManager" class="com.core.jadlsoft.business.xtgl.impl.PermissManager" parent="baseManager" scope="prototype" />
+	<bean id="gnlbManager" class="com.core.jadlsoft.business.xtgl.impl.GnlbManager" parent="baseManager" scope="prototype" />
+	
+	<!-- **************************************** 集群管理   **************************************** -->
+	<bean id="jqAction" class="com.core.jadlwork.struts.action.jqgl.JqAction" scope="prototype">
+		<property name="jqManager" ref="jqManager" />
+	</bean>
+	<bean id="jqManager" class="com.core.jadlwork.business.jqgl.impl.JqManager" scope="prototype">
+		<property name="nginxManager" ref="nginxManager" />
+	</bean>
+	
+	<!-- **************************************** 服务器管理   **************************************** -->
+	
+	<!-- 应用服务器 -->
+	<bean id="fwqAction" class="com.core.jadlwork.struts.action.fwqgl.FwqAction" scope="prototype">
+		<property name="fwqManager" ref="fwqManager" />
+	</bean>
+	
+	<!-- nginx服务器 -->
+	<bean id="nginxAction" class="com.core.jadlwork.struts.action.fwqgl.NginxAction" scope="prototype">
+		<property name="nginxManager" ref="nginxManager" />
+		<property name="jqManager" ref="jqManager" />
+	</bean>
+	
+	<bean id="fwqManager" class="com.core.jadlwork.business.fwqgl.impl.FwqManager" parent="baseManager">
+		<property name="yyManager" ref="yyManager" />
+	</bean>
+	<bean id="nginxManager" class="com.core.jadlwork.business.fwqgl.impl.NginxManager" parent="baseManager" />
+	
+	<!-- **************************************** 应用管理   **************************************** -->
+	
+	<!-- web应用 -->
+	<bean id="yyAction" class="com.core.jadlwork.struts.action.yygl.YyAction" scope="prototype">
+		<property name="yyManager" ref="yyManager" />
+		<property name="fwqManager" ref="fwqManager" />
+	</bean>
+	
+	<!-- 应用运行服务器 -->
+	<bean id="YyControlAction" class="com.core.jadlwork.struts.action.yygl.YyControlAction" scope="prototype">
+		<property name="yyManager" ref="yyManager" />
+		<property name="yyControlManager" ref="yyControlManager" />
+	</bean>
+	
+	<bean id="yyManager" class="com.core.jadlwork.business.yygl.impl.YyManager" parent="baseManager" scope="prototype" />
+	<bean id="yyControlManager" class="com.core.jadlwork.business.yygl.impl.YyControlManager" parent="baseManager" scope="prototype">
+		<property name="nginxManager" ref="nginxManager" />
+	</bean>
+	
+	
+	<!-- **************************************** 服务管理   **************************************** -->
+	
+	<!-- 传统服务 -->
+	<bean id="fwAction" class="com.core.jadlwork.struts.action.fwgl.FwAction" scope="prototype"/>
+	
+	<!-- 数据接口 -->
+	<bean id="sjjkAction" class="com.core.jadlwork.struts.action.fwgl.SjjkAction" scope="prototype"/>
+	
+	<!-- 远程调用 -->
+	<bean id="serviceBusAction" class="com.core.jadlwork.webservice.ServiceBusAction" scope="prototype"/>
+
+	<bean id="fwManager" class="com.core.jadlwork.business.fwgl.FwManager" parent="baseManager" scope="prototype" />
+	<bean id="sjjkManager" class="com.core.jadlwork.business.fwgl.SjjkManager" parent="baseManager" scope="prototype" />
+	
+	
+	<!-- **************************************** 首页   **************************************** -->
+	<bean id="indexAction" class="com.core.jadlwork.struts.action.index.IndexAction" scope="prototype">
+		<property name="yyManager" ref="yyManager" />
+	</bean>
+	
+	<!-- **************************************** 故障中心  **************************************** -->
+	<bean id="gzzxAction" class="com.core.jadlwork.struts.action.gzzx.GzzxAction" scope="prototype">
+		<property name="gzzxManager" ref="gzzxManager" />
+		<property name="tsryManager" ref="tsryManager" />
+		<property name="tsgzManager" ref="tsgzManager" />
+	</bean>
+	<bean id="gzzxManager" class="com.core.jadlwork.business.gzzx.impl.GzzxManager" scope="prototype" >
+		<property name="gzPushManager" ref="gzPushManager" />
+	</bean>
+	
+	<bean id="gzPushManager" class="com.core.jadlwork.business.gzzx.impl.GzPushManager" scope="prototype" >
+	</bean>
+	
+	<!-- 推送人员 -->
+	<bean id="tsryAction" class="com.core.jadlwork.struts.action.gzzx.TsryAction" scope="prototype">
+		<property name="tsryManager" ref="tsryManager" />
+	</bean>
+	<bean id="tsryManager" class="com.core.jadlwork.business.gzzx.impl.TsryManager"></bean>
+	
+	<!-- 推送规则 -->
+	<bean id="tsgzManager" class="com.core.jadlwork.business.gzzx.impl.TsgzManager"></bean>
+	
+	
+		
+</beans>

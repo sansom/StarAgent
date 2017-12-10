@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd   
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd   
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd   
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+	default-autowire="byName">
+
+	<!-- 服务器缓存 -->
+	<bean id="dicMapUtils" class="com.core.jadlsoft.dbutils.DicMapUtils"
+		init-method="setCache">
+		<property name="tableList">
+			<list>
+				<!-- tablename//sql//keycol//orderby -->
+				
+				<value>t_dm_jklx//t_dm_jklx //dm//dm</value>
+				<value>t_dm_fwfl//t_dm_fwfl //dm//dm</value>
+				<value>t_dm_unit//t_dm_unit //dm//dm</value>
+				<value>t_dm_lylx//t_dm_lylx //dm//dm</value>
+				<!-- 服务器操作系统分类的字典表 -->
+				<value>t_dm_fwqczxt//t_dm_fwqczxt //dm//dm</value>
+				<!-- Nginx代理方式的字典表 -->
+				<value>t_dm_nginxdlfs//t_dm_nginxdlfs //dm//dm</value>
+				<!-- Nginx代理类型的字典表 -->
+				<value>t_dm_nginxdllx//t_dm_nginxdllx //dm//dm</value>
+				<!-- Nginx配置类型的字典表 -->
+				<value>t_dm_nginxpzlx//t_dm_nginxpzlx //dm//dm</value>
+				<!-- http协议的字典表 -->
+				<value>t_dm_httpxy//t_dm_httpxy //dm//dm</value>
+			
+				<!-- 服务器状态字典表 -->
+				<value>t_dm_fwqstatus//t_dm_fwqstatus //dm//dm</value>
+				<!-- 应用状态字典表 -->
+				<value>t_dm_yyzt//t_dm_yyzt //dm//dm</value>
+				<!-- 应用运行状态字典表 -->
+				<value>t_dm_yyyyzt//t_dm_yyyyzt //dm//dm</value>
+				<!-- 平台类型字典表 -->
+				<value>t_dm_ptlx//t_dm_ptlx //dm//dm</value>
+				
+				<!-- 故障中心-故障类型 -->
+				<value>t_dm_gzzx_gzlx//t_dm_gzzx_gzlx //dm//dm</value>
+				<!-- 故障中心-故障优先级 -->
+				<value>t_dm_gzzx_yxj//t_dm_gzzx_yxj //dm//dm</value>
+				<value>t_dm_ts_tszt//t_dm_ts_tszt //dm//dm</value>
+				<value>t_dm_ts_tslx//t_dm_ts_tslx //dm//dm</value>
+
+			</list>
+		</property>
+		<property name="keyColumn" value="code" />
+		<property name="dicConfigFile" value="/dicconfig.xml" />
+	</bean>
+	
+	
+	
+	<!--  -->
+	<bean id="commonListAction" class="com.core.jadlsoft.struts.action.CommonListAction" init-method="init" scope="prototype">
+		<property name="listcount">
+			<value>20000</value>
+		</property>
+		<property name="dataSource" ref="dataSource" />
+		<property name="listManager" ref="commonlistManager" />
+		<property name="listConfigList">
+			<list>
+				 <value>/listConfig-fwgl.xml</value> 
+				 <value>/listConfig-fwqgl.xml</value>
+				 <value>/listConfig-yygl.xml</value>
+				 <value>/listConfig-xtgl.xml</value>
+				 <value>/listConfig-nginx.xml</value>
+				 <value>/listConfig-jqgl.xml</value>
+				 <value>/listConfig-gzzx.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!--  -->
+	<bean id="sqlMapUtils" class="com.core.jadlsoft.dbutils.SqlMapUtils"
+		init-method="init">
+		<property name="sqlmapList">
+			 <list>
+				<value>/sqlmapconfig-fwgl.xml</value> 
+				<value>/sqlmapconfig-fwqgl.xml</value> 
+				<value>/sqlmapconfig-yygl.xml</value> 
+				<value>/sqlmapconfig-xtgl.xml</value>
+				<value>/sqlmapconfig-nginx.xml</value>
+				<value>/sqlmapconfig-jqgl.xml</value>
+				<value>/sqlmapconfig-gzzx.xml</value>
+			</list>
+		</property>
+	</bean>
+ 
+</beans>

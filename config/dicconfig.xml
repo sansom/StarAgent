@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<columns>
+ 	<!-- <column name="xzqh" table="t_dm_xzqh" key="xzqh" text="mc" desc="行政区划"/> -->
+ 	<column name="jklx" table="t_dm_jklx" key="dm" text="mc" desc="接口类型"/>
+    <column name="paramlx" table="t_dm_paramlx" key="dm" text="mc" desc="参数类型"/>
+    <column name="fwfl" table="t_dm_fwfl" key="dm" text="mc" desc="服务分类"/>
+    <column name="unit" table="t_dm_unit" key="dm" text="mc" desc="价格单位"/>
+    <column name="lylx" table="t_dm_lylx" key="dm" text="mc" desc="路由类型"/>
+    <!-- 服务器操作系统字典表 -->
+    <column name="fwqczxt" table="t_dm_fwqczxt" key="dm" text="mc" desc="服务器操作系统"/>
+    <!-- Nginx代理方式的字典表 -->
+    <column name="dlfs" table="t_dm_nginxdlfs" key="dm" text="mc" desc="Nginx代理方式"/>
+    <!-- Nginx代理类型的字典表 -->
+    <column name="dllx" table="t_dm_nginxdllx" key="dm" text="mc" desc="Nginx代理类型"/>
+    <!-- Nginx配置类型的字典表 -->
+    <column name="pzlx" table="t_dm_nginxpzlx" key="dm" text="mc" desc="配置类型"/>
+    <!-- http协议的字典表 -->
+    <column name="xy" table="t_dm_httpxy" key="dm" text="mc" desc="http协议"/>
+    
+    <column name="ptlx" table="t_dm_ptlx" key="dm" text="mc" desc="平台类型"/>
+    <column name="fwqstatus" table="t_dm_fwqstatus" key="dm" text="mc" desc="服务器状态"/>
+    
+    <column name="yyzt" table="t_dm_yyzt" key="dm" text="mc" desc="应用状态"/>
+    <column name="yyyyzt" table="t_dm_yyyyzt" key="dm" text="mc" desc="应用运行状态"/>
+    
+    <column name="gzlx" table="t_dm_gzzx_gzlx" key="dm" text="mc" desc="故障类型"/>
+    <column name="yxj" table="t_dm_gzzx_yxj" key="dm" text="mc" desc="优先级"/>
+    <column name="tszt" table="t_dm_ts_tszt" key="dm" text="mc" desc="推送状态"/>
+    <column name="tslx" table="t_dm_ts_tslx" key="dm" text="mc" desc="推送类型"/>
+   
+</columns>

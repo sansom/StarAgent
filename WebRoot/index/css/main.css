@@ -1,0 +1,213 @@
+a {
+	text-decoration: none;
+	color: #4E93CE;
+}
+a:hover {
+	text-decoration: none;
+}
+h3 {
+	font-size: 18px;
+}
+.log_div {
+	margin: 0 auto;
+	margin-top:5px;
+	padding:10px;
+	position:relative;
+	width: 860px;
+	overflow-x: auto;
+	border-radius: 5px;
+	background-color: #F8F8F8;
+}
+.closeLog {
+	position:absolute;
+	top:0px;
+	right:1px;
+	text-align:center;
+	line-height:30px;
+	background-color: #2FA2F4;
+	color:#F8F8F8;
+	width: 40px;
+	height: 30px;
+}
+.closeLog a:HOVER {
+	color:red;
+}
+.log_div table {
+	margin: 0 auto;
+	margin-top:20px;
+	text-align: center;
+	font-size: 18px;
+}
+.log_div table td {
+	height: 30px;
+	line-height: 30px;
+}
+.log_div table td a {
+	color: #0000CC;
+}
+.log_div_td1 {
+	margin: 0 auto;
+	width: 50%;
+}
+.log_div_td2 {
+	margin: 0 auto;
+	width: 20%;
+}
+.log_div_td3 {
+	margin: 0 auto;
+	width: 15%;
+	color: #4285F4;
+}
+.box-shadow{  
+    filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696',Direction=120, Strength=10);/*for ie6,7,8*/  
+    -moz-box-shadow:5px 5px 15px #969696;/*firefox*/  
+    -webkit-box-shadow:5px 5px 15px #969696;/*webkit*/  
+    box-shadow:5px 5px 15px #969696;/*opera或ie9*/  
+}
+.main_content {
+	background: #E5E5E8;
+	padding: 10px;
+}
+.main_left {
+	width: 50%;
+	float: left;
+	margin: 0 auto;
+	text-align: center;
+	padding-bottom: 20px;
+	/* background: #E5E8ED; */
+}
+
+.yyContent {
+	/* width: 280px; */
+	width:0px;
+	height:0px;
+	/* height: 900px; */
+	display: inline-block;
+	text-align: center;
+	overflow: hidden;
+}
+.yyitem {
+	margin:0 auto;
+	margin-top: 20px;
+	padding:0px;
+	width: 270px;
+	/* background: #76B4F5; */
+	border-radius:3px;
+	
+	/* filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696',Direction=120, Strength=10);for ie6,7,8  
+    -moz-box-shadow:5px 5px 15px #969696;firefox  
+    -webkit-box-shadow:5px 5px 15px #969696;webkit  
+    box-shadow:5px 5px 15px #969696;opera或ie9  */ 
+}
+.yyMoreitem {
+	margin:0 auto;
+	margin-top: 20px;
+	width: 270px;
+	/* background: #F8D080; */
+	background: #FFFFFF;
+	border-radius:3px;
+}
+.yyitem table {
+	width:100%;
+	text-align: center;
+	height: 100%;
+}
+.yyMoreitem table {
+	width:100%;
+	text-align: center;
+	height: 100%;
+}
+.fwqContent {
+	/* width: 450px; */
+	/* height: 900px; */
+	margin-left:60px;
+	display: inline-block;
+	overflow: hidden;
+}
+.fwqOuteritem {
+	margin:0 auto;
+	margin-top: 20px;
+	padding:0px;
+	width: 360px;
+	/* background: #F8D080; */
+	display: block;
+	border-radius:5px;
+	position: relative;
+	float: left;
+}
+.fwqitem {
+	margin:0 auto;
+	margin-top: 20px;
+	width: 350px;
+	/* background:#4E93CE; */
+	/* background:url("fwqbg4.png"); */
+	/* background: #B0E0E6; */
+	/* background: white; */
+	/* background: #76B4F5; */
+	display: block;
+	border-radius:5px;
+	
+	/* filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696',Direction=120, Strength=15);for ie6,7,8  
+    -moz-box-shadow:30px 30px 50px #969696;firefox  
+    -webkit-box-shadow:30px 30px 50px #969696;webkit  
+    box-shadow:80px 10px 15px #969696;opera或ie9   */
+}
+.fwqYyInfoitem {
+	margin:0 auto;
+	margin-top: 20px;
+	width: 360px;
+	background: #5298DB;
+	display: block;
+}
+.fwqYyInfoitem a {
+	color: white;
+}
+.fwqYyInfoitem a:hover {
+	color: red;
+}
+.fwqMoreitem {
+	margin:0 auto;
+	margin-top: 20px;
+	width: 360px;
+	background: #E5E8ED;
+	display: block;
+}
+.fwqitem table {
+	width:100%;
+	text-align: center;
+	height: 100%;
+	/* border-color: white; */
+}
+.fwqYyInfoitem table {
+	width:100%;
+	text-align: center;
+	height: 100%;
+}
+.fwqMoreitem table {
+	width:100%;
+	text-align: center;
+	height: 100%;
+}
+.main_middle {
+	width: 50%;
+	float: left;
+	text-align: center;
+	padding-bottom: 20px;
+}
+.main_right {
+	width: 0%;
+	float: left;
+}
+
+.heighLight {
+	-webkit-transition:border linear .2s,-webkit-box-shadow linear .3s; 
+	border-color:#4E93CE; 
+	-webkit-box-shadow:0 0 10px #3399FF; 
+	background: #4E93CE;
+}
+.heighLight_yy {
+	-webkit-transition:border linear .2s,-webkit-box-shadow linear .3s; 
+	border-color:#F8D080; 
+	-webkit-box-shadow:0 0 20px #F8D080; 
+	background: #F8D080;
+}

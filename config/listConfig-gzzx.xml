@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+
+	<!-- 故障中心-服务器故障管理列表 -->
+	<forward request="/gzzx/fwqgzzxlist.action" requirecondition="1~=~1"
+		defaultcondition="1~=~1"
+		datasource="(
+			select t.*,
+				       (select count(*)
+				          from t_gzzx_jbxx g
+				         where g.tszid = t.tszid
+				           and g.iscfgz = '0') totalcf ,
+				       (
+				       	select b.fwqname from t_fwqgl_fwq b
+					       where b.zt = '0'
+					       and b.fwqip = t.fwqip
+					       and b.dk = t.fwqdk
+				       ) fwqname
+			   from t_gzzx_jbxx t 
+				where t.zt = '0'
+				and t.gzlx = '01'
+				and t.iscfgz = '1'
+				order by yxj,bhsj desc,gzlx
+			) t"
+		success="gzzx/fwqgzzxlist.jsp" title="" field="" />
+	
+	<!-- 故障中心-应用故障管理列表 -->
+	<forward request="/gzzx/yygzzxlist.action" requirecondition="1~=~1"
+		defaultcondition="1~=~1"
+		datasource="(
+			select t.*,
+			       (select count(*)
+			          from t_gzzx_jbxx g
+			         where g.tszid = t.tszid
+			           and g.iscfgz = '0') totalcf,
+		           (
+			       	select b.fwqname from t_fwqgl_fwq b
+				       where b.zt = '0'
+				       and b.fwqip = t.fwqip
+				       and b.dk = t.fwqdk
+			       ) fwqname
+			 from t_gzzx_jbxx t 
+				where t.zt = '0'
+				and t.gzlx = '02'
+				and t.iscfgz = '1'
+				order by yxj,bhsj desc,gzlx
+			) t"
+		success="gzzx/yygzzxlist.jsp" title="" field="" />
+		
+	<!-- 故障中心-应用运行故障管理列表 -->
+	<forward request="/gzzx/yyyxgzzxlist.action" requirecondition="1~=~1"
+		defaultcondition="1~=~1"
+		datasource="(
+			select t.*,
+			       (select count(*)
+			          from t_gzzx_jbxx g
+			         where g.tszid = t.tszid
+			           and g.iscfgz = '0') totalcf 
+			 from t_gzzx_jbxx t 
+				where t.zt = '0'
+				and t.gzlx = '03'
+				and t.iscfgz = '1'
+				order by yxj,bhsj desc,gzlx
+			) t"
+		success="gzzx/yyyxgzzxlist.jsp" title="" field="" />
+	
+	<!-- 故障中心-故障推送详情列表 -->
+	<forward request="/gzzx/gzpushlist.action" requirecondition="1~=~1"
+		defaultcondition="1~=~1"
+		datasource="(
+			select * from t_ts_jbxx t 
+				where t.zt = '0'
+				order by tszt,tslx
+			) t"
+		success="gzzx/gzpushlist.jsp" title="" field="" />
+	
+	<!-- 推送人员列表 -->
+	<forward request="/gzzx/gztsrylist.action" requirecondition="1~=~1"
+		defaultcondition="1~=~1"
+		datasource="(
+			select t.id,
+			       t.username,
+			       t.dxts,t.yxts,t.wxts,t.sjhm,t.wxid,t.yxdz,
+			       t.dxts || '#' || t.sjhm || '$' || t.wxts || '#' || t.wxid || '$' ||
+			       t.yxts || '#' || t.yxdz tsxx,
+			       t.tjsj
+			  from t_ts_ry t
+			 where t.zt = '0'
+			 order by tjsj
+			) t"
+		success="gzzx/tsrylist.jsp" title="" field="" />
+	
+	
+</configs>
+

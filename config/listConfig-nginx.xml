@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+
+	<!-- Nginx服务器列表 -->
+	<forward request="/nginx/nginxlist.action" requirecondition="1~=~1"
+		defaultcondition="1~=~1"
+		datasource="(
+			select id,
+			       fwqname,
+			       nginxsrc,
+			       fwqip,
+			       fwqczxt,
+			       to_char(cjsj, 'yyyy-MM-dd HH:mm:ss') cjsj,
+			       to_char(zhxgsj, 'yyyy-MM-dd HH:mm:ss') zhxgsj,
+			       to_char(cxsj, 'yyyy-MM-dd HH:mm:ss') cxsj,
+			       zt,
+			       (select to_char(wmsys.wm_concat(c.jqinfostr))
+			          from (select distinct (jqname || '@' || fwym || '@' || fwdk) jqinfostr,
+			                                a.nginxid
+			                  from t_nginx_jq a, t_jq_jbxx b
+			                 where a.jqid = b.id
+			                   and b.zt = '0') c
+			         where c.nginxid = t.id) jqinfo,
+			       gxzt,
+			       gxsbyy,
+			       (select to_char(wmsys.wm_concat(c.sfbgzinfostr))
+			          from (select distinct (regex) sfbgzinfostr,
+			                                a.id
+			                  from t_nginx_jbxx a, t_nginx_sfbpz b
+			                 where a.id = b.nginxid
+			                   and a.zt = '0') c
+			         where c.id = t.id) sfbgzinfo
+			  from t_nginx_jbxx t
+			 where zt = '0'
+			 order by cjsj
+			) t"
+		success="/nginx/nginxlist.jsp" title="" field="" />
+	
+</configs>
+

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+
+	<!-- 集群管理列表 -->
+	<forward request="/jqgl/jqlist.action" requirecondition="1~=~1"
+		defaultcondition="1~=~1"
+		datasource="(
+				select id,jqname,fwym,fwdk,cjsj,cxsj,zhxgsj,zt,
+			       (select to_char(wmsys.wm_concat(c.fwqinfostr))
+			          from (
+                     select distinct (fwqname || '@' || fwqip || '@' || dk || '@' || fwqstatus) fwqinfostr,
+                                      a.jqid
+                        from t_jq_fwq a, t_fwqgl_fwq b
+                       where a.fwqid = b.id
+                         and b.zt = '0'
+                         and b.ptlx = '01'
+                      
+                      union all
+                      
+                      select distinct (fwqname || '@' || fwqip_ww || '@' || dk || '@' ||
+                                      fwqstatus) fwqinfostr,
+                                      a.jqid
+                        from t_jq_fwq a, t_fwqgl_fwq b
+                       where a.fwqid = b.id
+                         and b.zt = '0'
+                         and b.ptlx = '02'
+                ) c
+			         where c.jqid = t.id) fwqinfo
+			  from t_jq_jbxx t
+			 where zt = '0'
+			) t"
+		success="jqgl/jqlist.jsp" title="" field="" />
+	
+</configs>
+

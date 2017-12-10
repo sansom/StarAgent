@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fwqgl>
+	<!-- 根据服务器IP获取服务器列表 -->
+	<select id="getFwqListByFwqip">
+		<![CDATA[
+			select * from t_fwqgl_fwq t where fwqip = :fwqip and zt = :zt order by id
+		]]>
+	</select>
+	
+	<!-- 获取所有有效的服务器的集合 -->
+	<select id="getFwqList">
+		<![CDATA[
+			select f.* from t_fwqgl_fwq f where f.zt = :zt
+		]]>
+	</select>
+	
+	<!-- 获取服务器，包含应用的信息 -->
+	<select id="getFwqListWithYy">
+		<![CDATA[
+			select a.*,b.*
+			  from t_fwqgl_fwq a,(
+			       select distinct
+			       b.fwqid fwqid,
+			       b.yyyxzt,
+			       b.yyzt,
+			       c.id yyid,
+			       c.yyname,
+			       c.warname,
+			       c.warsrc,
+			       c.cjsj,
+			       c.zhxgsj,
+			       c.scsj,
+			       c.yylogsrc,
+			       c.yyversion
+			       from t_yygl_yyyxjl b, t_yygl_yy c
+			       where b.yyid = c.id
+			       and c.zt = '0'
+			  ) b
+			  
+			  where a.zt = :zt
+			    and a.ptlx = :ptlx
+			    and a.id = b.fwqid(+)
+		]]>
+	</select>
+	
+	
+
+	<!--获取所有可用服务器列表  -->
+	<select id="getKyFwqByYyid">
+		<![CDATA[
+
+		select d.jqid, d.jqname, wmsys.wm_concat(d.fwqid || '@' || d.fwqname) fwqlist 
+			  from (select c.id jqid,
+			               c.jqname,
+			               c.fwym,
+			               c.fwdk,
+			               a.id fwqid,
+			               a.fwqname,
+			               a.fwqip
+			          from t_fwqgl_fwq a, t_jq_fwq b, t_jq_jbxx c
+			         where a.zt = :zt
+			           and a.ptlx = :ptlx
+			           and a.id = b.fwqid
+			           and c.id = b.jqid
+			           and c.zt = :zt) d
+			  left join t_yygl_yyyxjl e on d.jqid = e.jqid
+			                           and d.fwqid = e.fwqid
+			                           and e.yyid = :yyid
+			 where e.id is null
+			 group by d.jqid, d.jqname
+			 order by d.jqid
+		]]>
+	</select>
+	
+	<!-- 获取服务器应用运行情况 -->
+	<select id="gerServerAppInfo">
+		<![CDATA[
+			select id,
+				       fwqip,
+				       dk,
+				       fwqname,
+				       fwqstatus,
+				       ptlx,
+				       cjsj,
+				       (select to_char(wmsys.wm_concat(c.yyinfostr))
+				          from (select (b.warname || '@' || to_char(a.id) || '@' ||
+				                       nvl(a.yyyxzt, '') || '@' || nvl(a.yyzt, '')) yyinfostr,
+				                       a.fwqid
+				                  from t_yygl_yyyxjl a, t_yygl_yy b
+				                 where a.yyid = b.id
+				                   and b.zt = '0') c
+				         where c.fwqid = t.id) yylist
+				  from t_fwqgl_fwq t
+				 where zt = '0'
+				   and ptlx = '01'
+				
+				union all
+				
+				select id,
+				       fwqip_ww fwqip,
+				       dk,
+				       fwqname,
+				       fwqstatus,
+				       ptlx,
+				       cjsj,
+				       (select to_char(wmsys.wm_concat(c.yyinfostr))
+				          from (select (b.warname || '@' || to_char(a.id) || '@' ||
+				                       nvl(a.yyyxzt, '') || '@' || nvl(a.yyzt, '')) yyinfostr,
+				                       a.fwqid
+				                  from t_yygl_yyyxjl a, t_yygl_yy b
+				                 where a.yyid = b.id
+				                   and b.zt = '0') c
+				         where c.fwqid = t.id) yylist
+				  from t_fwqgl_fwq t
+				 where zt = '0'
+				   and ptlx = '02'
+				 order by cjsj
+		]]>
+	</select>
+<!-- 	<select id="gerServerAppInfo">
+		<![CDATA[
+			select id,
+			       fwqip,
+			       dk,
+			       fwqname,
+			       fwqstatus,
+			       (select to_char(wmsys.wm_concat(c.yyinfostr))
+			          from (select (b.warname || '@' || to_char(a.id) || '@' ||
+			                       nvl(a.yyyxzt, '') || '@' || nvl(a.yyzt, '')) yyinfostr,
+			                       a.fwqid
+			                  from t_yygl_yyyxjl a, t_yygl_yy b
+			                 where a.yyid = b.id
+			                   and b.zt = '0') c
+			         where c.fwqid = t.id) yylist
+			  from t_fwqgl_fwq t
+			 where zt = '0'
+			 order by cjsj
+			
+		]]>
+	</select> -->
+	
+	<!--获取系统监控主机  -->
+	<select id="getMoniterHost">
+		<![CDATA[
+			select id,systemid, to_char(lastcontime,'yyyy-MM-dd hh24:mi:ss') lastcontime from t_xt_monitorhost
+		]]>
+	</select>
+	<!-- ========================================Nginx服务器============================================ -->
+	
+	<!-- 删除应用运行记录下的服务器的信息 -->
+	<update id="deleteYyyxjlByFwqid">
+		<![CDATA[
+			delete from t_yygl_yyyxjl where fwqid = :fwqid
+		]]>
+	</update>
+	
+</fwqgl>

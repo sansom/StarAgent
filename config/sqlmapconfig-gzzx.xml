@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gzzx>
+	<!-- 获取所有服务器应用故障信息 -->
+	<select id="getFwqYyGzxxList">
+		<![CDATA[
+			select '01' gzlx,
+			       decode(f.ptlx,'02',f.fwqip_ww,f.fwqip) fwqip,
+			       f.dk fwqdk,
+			       '' yyname,
+			       '' yclx,
+			       '' ycyy,
+			       f.statusinfo ycxx,
+			       '01' yxj,
+			       sysdate bhsj,
+			       f.id fwqid,
+			       '' yyid,
+			       '0' zt
+			  from t_fwqgl_fwq f
+			 where f.zt = '0'
+			   and f.fwqstatus = :zt
+			
+			union all
+			
+			select '02' gzlx,
+			       decode(f.ptlx,'02',f.fwqip_ww,f.fwqip) fwqip,
+			       f.dk fwqdk,
+			       y.yyname yyname,
+			       '' yclx,
+			       '' ycyy,
+			       jl.yyyxztinfo ycxx,
+			       '01' yxj,
+			       sysdate bhsj,
+			       f.id fwqid,
+			       y.id yyid,
+			       '0' zt
+			      
+			  from t_yygl_yyyxjl jl, t_yygl_yy y, t_fwqgl_fwq f
+			 where jl.yyid = y.id
+			   and y.zt = '0'
+			   and jl.yyzt = '0'
+			   and jl.yyyxzt = :zt
+			   and jl.fwqid = f.id
+			   and f.zt = '0'
+			   and f.fwqstatus = '0'
+		]]>
+	</select>
+	
+	<!-- 获取故障捕获信息，根据主推送信息获取下面的所有重复信息 -->
+	<select id="getGzBhXx">
+		<![CDATA[
+			select * from t_gzzx_jbxx g
+				where g.tszid = (
+				      select tszid from t_gzzx_jbxx
+				             where id = :gzid
+				)
+				and g.zt = '0'
+				and g.iscfgz = :iscfgz
+				order by bhsj
+							
+		]]>
+	</select>
+	
+	<!-- 根据服务器IP、服务器端口、异常信息、时间段查询故障信息 -->
+	<select id="getRepeatGzxxForFwq">
+		<![CDATA[
+			select * from t_gzzx_jbxx g
+				where g.fwqip = :fwqip
+				and g.fwqdk = :fwqdk
+				and g.ycxx = :ycxx
+				and g.iscfgz = :iscfgz
+				and g.zt = :zt
+				and (g.bhsj 
+					between to_date(:fromdate,'yyyy-mm-dd hh24:mi:ss')
+					and to_date(:todate,'yyyy-mm-dd hh24:mi:ss')
+				)
+		]]>
+	</select>
+	
+	<!-- 根据服务器IP、服务器端口、应用名称、异常信息、时间段查询故障信息 -->
+	<select id="getRepeatGzxxForYy">
+		<![CDATA[
+			select * from t_gzzx_jbxx g
+				where g.fwqip = :fwqip
+				and g.fwqdk = :fwqdk
+				and g.yyname = :yyname
+				and g.ycxx = :ycxx
+				and g.iscfgz = :iscfgz
+				and g.zt = :zt
+				and (g.bhsj 
+					between to_date(:fromdate,'yyyy-mm-dd hh24:mi:ss')
+					and to_date(:todate,'yyyy-mm-dd hh24:mi:ss')
+				)
+		]]>
+	</select>
+	
+	<!-- 批量插入故障信息 -->
+	<update id="insert_t_gzxx_jbxx">
+		<![CDATA[
+			insert into t_gzzx_jbxx (id,gzlx,fwqip,fwqdk,yyname,yclx,ycyy,ycxx,yxj,bhsj,zt) 
+				values(:id,:gzlx,:fwqip,:fwqdk,:yyname,:yclx,:ycyy,:ycxx,:yxj,:bhsj,:zt)
+		]]>
+	</update>
+	
+	<!-- 批量更新服务器是否报警字段 -->
+	<update id="update_alarm_t_fwqgl_fwq">
+		<![CDATA[
+			update t_fwqgl_fwq f
+				set f.isalarm = :isalarm
+				where f.id = :id
+		]]>
+	</update>
+	
+	<!-- 批量更新应用是否报警字段 -->
+	<update id="update_alarm_t_yygl_yy">
+		<![CDATA[
+			update t_yygl_yy y
+				set y.isalarm = :isalarm
+				where y.id = :id
+		]]>
+	</update>
+	
+	<!-- 批量更新微信消息发送成功 -->
+	<update id="update_wxpush_succ">
+		<![CDATA[
+			update t_ts_jbxx t
+				set t.tszt = :tszt
+				where t.id = :id
+		]]>
+	</update>
+	
+	<!-- 获取指定的推送类型的推送信息 -->
+	<select id="getDtsPushXxByTslx">
+		<![CDATA[
+			select t.*,
+			       g.gzlx,
+			       g.fwqip,
+			       g.fwqdk,
+			       g.yyname,
+			       g.yclx,
+			       g.ycyy,
+			       g.ycxx,
+			       g.yxj
+			  from t_ts_jbxx t, (select * from t_gzzx_jbxx g where g.zt = :zt) g
+			 where t.tslx = :tslx
+			   and t.zt = :zt
+			   and (t.tszt = '01' or (t.tszt = '03' and t.cfcs<4))
+			   and t.tsssid = g.id(+)
+		]]>
+	</select>
+	
+	<!-- 获取待推送的邮箱的用户信息 -->
+	<select id="getPendingPushEmailUserInfo">
+		<![CDATA[
+			select a.*
+			  from t_ts_ry a, t_gz_tsgzry b, t_dm_gzzx_gzlx c
+			 where a.id = b.ryid
+			   and b.gzid = :gzid
+			   and b.gzid = c.dm
+			   and a.zt = '0'
+			   and c.qyzt = '0'
+			   and a.yxts = '0'
+		]]>
+	</select>
+	
+	<!-- 获取待推送的微信的用户信息 -->
+	<select id="getPendingPushWeChatUserInfo">
+		<![CDATA[
+			select a.*
+			  from t_ts_ry a, t_gz_tsgzry b, t_dm_gzzx_gzlx c
+			 where a.id = b.ryid
+			   and b.gzid = :gzid
+			   and b.gzid = c.dm
+			   and a.zt = '0'
+			   and c.qyzt = '0'
+			   and a.wxts = '0'
+		]]>
+	</select>
+	
+	<!-- 批量插入推送信息 -->
+	<update id="insert_t_ts_jbxx">
+		<![CDATA[
+			insert into t_ts_jbxx (id,tslx,title,msg,touser,tousername,tsssid,intime,sendtime,tszt,cfcs,zt) 
+				values(:id,:tslx,:title,:msg,:touser,:tousername,:tsssid,:intime,:sendtime,:tszt,:cfcs,:zt)
+		]]>
+	</update>
+	
+	<!-- 删除指定规则下的所有规则-人员信息 -->
+	<update id="deleteRyByGzid">
+		<![CDATA[
+			delete from t_gz_tsgzry where gzid = :gzid
+		]]>
+	</update>
+	
+	<!-- 批量添加规则-人员信息 -->
+	<update id="insert_t_gz_tsgzry">
+		<![CDATA[
+			insert into t_gz_tsgzry (gzid,ryid) 
+				values(:gzid,:ryid)
+		]]>
+	</update>
+	
+	<!-- 获取所有的推送规则，包含人员的信息 -->
+	<select id="getAllTsgz">
+		<![CDATA[
+			select a.dm,
+			       a.mc,
+			       a.qyzt,
+			       (select replace(WMSYS.WM_CONCAT(b.ryid), ',', ',')
+			          from t_gz_tsgzry b
+			         where b.gzid = a.dm) ryids,
+			       (select replace(WMSYS.WM_CONCAT(c.username), ',', ',')
+			          from t_gz_tsgzry b, t_ts_ry c
+			         where b.gzid = a.dm
+			           and b.ryid = c.id
+			           and c.zt = '0') rynames
+			
+			  from t_dm_gzzx_gzlx a
+		]]>
+	</select>
+	
+	<!-- 改变规则启用状态 -->
+	<update id="changeGzQyzt">
+		<![CDATA[
+			update t_dm_gzzx_gzlx set qyzt = :qyzt where dm = :gzid
+		]]>
+	</update>
+	
+</gzzx>

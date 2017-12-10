@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configs>
+
+	
+	<!-- 应用列表 -->
+	<forward request="/yygl/yylist.action" requirecondition="1~=~1"
+		defaultcondition="1~=~1"
+		datasource="(
+			      select id,
+			       yyname,
+			       warname,
+			       warsrc,
+			       yyversion,
+			       warsrc_sfb,
+			       yyversion_sfb,
+			       ptlx,
+			       (select to_char(wmsys.wm_concat(c.fwqinfostr))
+			          from (select (b.fwqname || '@' || b.fwqstatus || '@' || nvl(b.fwqip, '-') || '@' ||
+			                       nvl(b.dk, '-') || '@' || nvl(a.yyyxzt, '-') || '@' ||
+			                       nvl(a.yyzt, '-') || '@' || to_char(a.id) || '@' ||
+			                       nvl(a.yyyxztinfo, '-') || '@' ||
+			                       nvl(b.fwqip_ww, b.fwqip) || '@' || nvl(b.jqname, '-')|| '@' || nvl(a.version, '-')|| '@' || nvl(a.fbzt, '-')) fwqinfostr,
+			                       a.yyid
+			                  from t_yygl_yyyxjl a,
+			                       (select a.jqname,
+			                               a.fwym,
+			                               a.fwdk,
+			                               b.jqid,
+			                               b.fwqid,
+			                               c.fwqname,
+			                               c.fwqym,
+			                               c.fwqstatus,
+			                               c.dk,
+			                               c.fwqip_ww,
+			                               c.fwqip
+			                          from t_jq_jbxx a, t_jq_fwq b, t_fwqgl_fwq c
+			                         where a.id = b.jqid
+			                           and b.fwqid = c.id
+			                           and a.zt = '0'
+			                           and c.zt = '0') b
+			                 where a.fwqid = b.fwqid
+			                      
+			                   and a.jqid = b.jqid) c
+			         where c.yyid = t.id) fwqyylist
+			  from t_yygl_yy t
+			 where zt = '0'
+			   and ptlx = '01'
+			 order by cjsj
+		) t"
+		success="/yygl/yylist.jsp" title="" field="" />
+		
+		<!-- 托管应用列表 -->
+		<forward request="/yygl/tgyylist.action" requirecondition="1~=~1"
+		defaultcondition="1~=~1"
+		datasource="(
+			 select id,
+			       yyname,
+			       warname,
+			       warsrc,
+			       yyversion,
+			       warsrc_sfb,
+			       yyversion_sfb,
+			       ptlx,
+			       (select to_char(wmsys.wm_concat(c.fwqinfostr))
+			          from (select (b.fwqname || '@' || b.fwqstatus || '@' || nvl(b.fwqip, '-') || '@' ||
+			                       nvl(b.dk, '-') || '@' || nvl(a.yyyxzt, '-') || '@' ||
+			                       nvl(a.yyzt, '-') || '@' || to_char(a.id) || '@' ||
+			                       nvl(a.yyyxztinfo, '-') || '@' ||
+			                       nvl(b.fwqip_ww, b.fwqip) || '@' || nvl(b.jqname, '-')|| '@' || nvl(a.version, '-')|| '@' || nvl(a.fbzt, '-')) fwqinfostr,
+			                       a.yyid
+			                  from t_yygl_yyyxjl a,
+			                       (select a.jqname,
+			                               a.fwym,
+			                               a.fwdk,
+			                               b.jqid,
+			                               b.fwqid,
+			                               c.fwqname,
+			                               c.fwqym,
+			                               c.fwqstatus,
+			                               c.dk,
+			                               c.fwqip_ww,
+			                               c.fwqip
+			                          from t_jq_jbxx a, t_jq_fwq b, t_fwqgl_fwq c
+			                         where a.id = b.jqid
+			                           and b.fwqid = c.id
+			                           and a.zt = '0'
+			                           and c.zt = '0') b
+			                 where a.fwqid = b.fwqid
+			                      
+			                   and a.jqid = b.jqid) c
+			         where c.yyid = t.id) fwqyylist
+			  from t_yygl_yy t
+			 where zt = '0'
+			   and ptlx = '02'
+			 order by cjsj
+		) t"
+		success="/yygl/tgyylist.jsp" title="" field="" />
+		
+</configs>
+

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="GB2312"?>
+<jadlsoft-jaly>
+	<!--
+				url: 链接方式
+			 gncode: 对应功能代码
+		 managetype: 数据管理方式（0: 无限制, 1: 本地管理, 2: 属地管理, 3: 市局、省厅所有的权限、4: 省厅独有权限）
+		manageparam: 管理参数，列表查询使用queryparamter[字段名称]，其中queryparamter可以省略 
+		  paramname: 功能参数名称
+		 paramvalue: 功能参数值
+	-->
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 首页 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<item url="/index/index.jsp" gncode="" managetype="0" manageparam="" />
+	<item url="/index/split.jsp" gncode="" managetype="0" manageparam="" />
+	<item url="/index/menulist.jsp" gncode="" managetype="0" manageparam="" />
+	<item url="/index/top.jsp" gncode="" managetype="0" manageparam="" />
+	<item url="/index/bottom.jsp" gncode="" managetype="0" manageparam="" />
+	<item url="/index/index.action" gncode="" managetype="0" manageparam="" />
+	<item url="/index/main.jsp" gncode="" managetype="0" manageparam="" />
+	<item url="/index/mymain.jsp" gncode="" managetype="0" manageparam="" />
+	<item url="/index/indexgetRefreshInfo.action" gncode="" managetype="0" manageparam="" />
+	<item url="/index/indexmonitorMain.action" gncode="" managetype="0" manageparam="" />
+	
+	<item url="/commonlist.action" gncode="" managetype="0" manageparam="" />
+	<item url="/bottom.jsp" gncode="" managetype="0" manageparam="" />
+	<!-- 菜单 -->
+	<item url="/xtgl/permissgetGnlbs.action" gncode="" managetype="0" manageparam="" />
+	
+	<!-- 缓存action -->
+	<item url="/cache/cachegetServerCache.action" gncode="" managetype="0" manageparam="" />
+	<item url="/cache/cachegetFwqIpList.action" gncode="" managetype="0" manageparam="" />
+	<item url="/cache/cachegetTgServerCache.action" gncode="" managetype="0" manageparam="" />
+	<item url="/cache/cacheisServerOnline.action" gncode="" managetype="0" manageparam="" />
+	
+	<!-- 首页action -->
+	<item url="/index/indexgetMain.action" gncode="" managetype="0" manageparam="" />
+	
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 系统管理 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 系统管理-用户管理 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<item url="/xtgl/userlistshow.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/useredit.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/userquery.action" gncode="" managetype="0" manageparam="" />
+	<item url="/ajax/ajax!checkDataExist.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/usersave.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/userget.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/userupdate.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/userdelete.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/userview.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/userpsw.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/userupdatepsw.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/user_getUserId_ajax.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/user_getUseridforQy_ajax.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/usercheckWeChatVerCode.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/usercreateEeweima.action" gncode="" managetype="0" manageparam="" />
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 系统管理-角色管理 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<item url="/xtgl/roleview.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/roleedit.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/roleupdate.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/rolesave.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/roleget.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/role_checkRolePermiss_ajax.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/roledelete.action" gncode="" managetype="0" manageparam="" />
+	
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 系统管理-权限管理 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<item url="/xtgl/permissview.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/permissedit.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/permissupdate.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/permisssave.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/permissget.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/permiss_checkPermissoperation_ajax.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/permissdelete.action" gncode="" managetype="0" manageparam="" />
+	
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 系统管理-功能菜单管理 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<item url="/xtgl/gnlbview.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/gnlbedit.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/gnlbupdate.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/gnlbsave.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/gnlbisGncodeAvailable.action" gncode="" managetype="0" manageparam="" />
+	<item url="/xtgl/gnlbdelete.action" gncode="" managetype="0" manageparam="" />
+	
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 系统管理-系统环境下载 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<item url="/xtgl/systemdownload.action" gncode="" managetype="0" manageparam="" />
+	
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 集群管理 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<item url="/jqgl/jqedit.action" gncode="" managetype="0" manageparam="" />
+	<item url="/jqgl/jqsave.action" gncode="" managetype="0" manageparam="" />
+	<item url="/jqgl/jqupdate.action" gncode="" managetype="0" manageparam="" />
+	<item url="/jqgl/jqremove.action" gncode="" managetype="0" manageparam="" />
+	<item url="/jqgl/jqasyncUpdateNginxConf.action" gncode="" managetype="0" manageparam="" />
+	
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 服务器管理-服务器列表 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<item url="/fwqgl/fwqedit.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwqgl/fwqsave.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwqgl/fwqupdate.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwqgl/fwqget.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwqgl/fwqcheckfwq.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwqgl/fwqremove.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwqgl/fwqgetServerStatus.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwqgl/fwqgetServerControlInfo.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwqgl/fwqgetTomcatLogs.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwqgl/fwqstopYyOnFwq.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwqgl/fwqtoshowLogOnline.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwqgl/fwqviewLogOnline.action" gncode="" managetype="0" manageparam="" />
+	
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 服务器管理-nginx服务器 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<item url="/nginx/nginxedit.action" gncode="" managetype="0" manageparam="" />
+	<item url="/nginx/nginxcheckfwq.action" gncode="" managetype="0" manageparam="" />
+	<item url="/nginx/nginxsave.action" gncode="" managetype="0" manageparam="" />
+	<item url="/nginx/nginxupdate.action" gncode="" managetype="0" manageparam="" />
+	<item url="/nginx/nginxgetNginxStatus.action" gncode="" managetype="0" manageparam="" />
+	<item url="/nginx/nginxremove.action" gncode="" managetype="0" manageparam="" />
+	<item url="/nginx/nginxconfig.action" gncode="" managetype="0" manageparam="" />
+	<item url="/nginx/nginxuploadNginxConfTemplete.action" gncode="" managetype="0" manageparam="" />
+	<item url="/nginx/nginxdownloadNginxConfTemplete.action" gncode="" managetype="0" manageparam="" />
+	<item url="/nginx/nginxisNginxConfTempleteExist.action" gncode="" managetype="0" manageparam="" />
+	<item url="/nginx/nginxviewLocalNginxConf.action" gncode="" managetype="0" manageparam="" />
+	<item url="/nginx/nginxdownloadFwqNginxConfig.action" gncode="" managetype="0" manageparam="" />
+	<item url="/nginx/nginxcreateNginxConf.action" gncode="" managetype="0" manageparam="" />
+	<item url="/nginx/nginxreplaceNginxConf.action" gncode="" managetype="0" manageparam="" />
+	<item url="/nginx/nginxshowFwqNginxConfig.action" gncode="" managetype="0" manageparam="" />
+	<item url="/nginx/nginxsfbgzpz.action" gncode="" managetype="0" manageparam="" />
+	<item url="/nginx/nginxsaveSfbpz.action" gncode="" managetype="0" manageparam="" />
+	<item url="/nginx/nginxcheckForUpdate.action" gncode="" managetype="0" manageparam="" />
+	<item url="/nginx/nginxviewLogOnline.action" gncode="" managetype="0" manageparam="" />
+	<item url="/nginx/nginxtoshowLogOnline.action" gncode="" managetype="0" manageparam="" />
+	<item url="/nginx/nginxdownloadLog.action" gncode="" managetype="0" manageparam="" />
+	<item url="/nginx/nginxdownloadLogFromLocal.action" gncode="" managetype="0" manageparam="" />
+	
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 应用管理-应用列表 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<item url="/yygl/yyedit.action" gncode="" managetype="0" manageparam="" />
+	<item url="/yygl/yysave.action" gncode="" managetype="0" manageparam="" />
+	<item url="/yygl/yyget.action" gncode="" managetype="0" manageparam="" />
+	<item url="/yygl/yyupdate.action" gncode="" managetype="0" manageparam="" />
+	<item url="/yygl/yycheckYyIsExist.action" gncode="" managetype="0" manageparam="" />
+	<item url="/yygl/yycheckYy.action" gncode="" managetype="0" manageparam="" />
+	<item url="/yygl/yyremove.action" gncode="" managetype="0" manageparam="" />
+	<item url="/yygl/yygetYyStatus.action" gncode="" managetype="0" manageparam="" />
+	<item url="/yygl/yytzYy.action" gncode="" managetype="0" manageparam="" />
+	<item url="/yygl/yyqdYy.action" gncode="" managetype="0" manageparam="" />
+	<item url="/yygl/yyisHasFw.action" gncode="" managetype="0" manageparam="" />
+	<item url="/yygl/yyisYyLogExist.action" gncode="" managetype="0" manageparam="" />
+	
+	<!-- 增加应用运行服务器 -->
+	<item url="/yygl/yyaddYyyxfwq.action" gncode="" managetype="0" manageparam="" />
+	<!-- 异步获取应用可用服务器列表 -->
+	<item url="/yygl/yygetKyFwqByYyid.action" gncode="" managetype="0" manageparam="" />
+	<!-- 异步获取应用对应的服务器的列表 -->
+	<item url="/yygl/yygetYyFwq.action" gncode="" managetype="0" manageparam="" />
+	<!-- 异步停止服务器上的应用 -->
+	<item url="/yygl/yytzFwqApp.action" gncode="" managetype="0" manageparam="" />
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 应用管理-应用运行控制器 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<item url="/yygl/yycontroltodo.action" gncode="" managetype="0" manageparam="" />
+	<item url="/yygl/yycontrolrelease.action" gncode="" managetype="0" manageparam="" />
+	<item url="/yygl/yycontrol!release.action" gncode="" managetype="0" manageparam="" />
+	
+
+	
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 服务管理-服务注册 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<item url="/fwgl/fwedit.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/fwsave.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/fwupdate.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/fwget.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/fwremove.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/fwqdFw.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/fwtzFw.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/fwfwsq.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/fwsqupdate.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/fwgetDataControlTjInfo.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/fwgetNodeControlTjInfo.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/fwgetDataControlListInfo.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/fwgetNodeControlListInfo.action" gncode="" managetype="0" manageparam="" />
+	
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 服务管理-服务队列管理 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<item url="/fwgl/fwdledit.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/fwdlsave.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/fwdlupdate.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/fwdlremove.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/fwdlget.action" gncode="" managetype="0" manageparam="" />
+	
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 服务管理-服务关系管理 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<item url="/fwgl/fwgxedit.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/fwgxsave.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/fwgxupdate.action" gncode="" managetype="0" manageparam="" />
+	
+	
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 服务管理-外部服务审核 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<item url="/fwgl/fwwbfwget.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/fwwbfwremove.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/fwwbfwsh.action" gncode="" managetype="0" manageparam="" />
+	
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 服务管理-数据接口管理 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<item url="/fwgl/sjjkedit.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/sjjksave.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/sjjkupdate.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/sjjkget.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/sjjkremove.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/sjjkfbSjjk.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/sjjktzSjjk.action" gncode="" managetype="0" manageparam="" />
+	<item url="/fwgl/sjjkcheckJkid.action" gncode="" managetype="0" manageparam="" />
+	
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 故障中心 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<item url="/gzzx/gzzxlist.jsp" gncode="" managetype="0" manageparam="" />
+	
+	<item url="/gzzx/gzzxchangeToYcl.action" gncode="" managetype="0" manageparam="" />
+	<item url="/gzzx/gzzxdeleteGzzx.action" gncode="" managetype="0" manageparam="" />
+	<item url="/gzzx/gzzxshowPushInfo.action" gncode="" managetype="0" manageparam="" />
+	<item url="/gzzx/gzzxshowBhjl.action" gncode="" managetype="0" manageparam="" />
+	<item url="/gzzx/gzzxupdateGzFilMinute.action" gncode="" managetype="0" manageparam="" />
+	
+	<item url="/gzzx/tsryedit.action" gncode="" managetype="0" manageparam="" />
+	<item url="/gzzx/tsrysave.action" gncode="" managetype="0" manageparam="" />
+	<item url="/gzzx/tsryupdate.action" gncode="" managetype="0" manageparam="" />
+	<item url="/gzzx/tsrydelete.action" gncode="" managetype="0" manageparam="" />
+	<item url="/gzzx/tsrycheckUsernameUsable.action" gncode="" managetype="0" manageparam="" />
+	<item url="/gzzx/tsrycheckSjhmUsable.action" gncode="" managetype="0" manageparam="" />
+	<item url="/gzzx/tsrycheckYxUsable.action" gncode="" managetype="0" manageparam="" />
+	
+	<item url="/gzzx/tsrycreateEeweima.action" gncode="" managetype="0" manageparam="" />
+	<item url="/gzzx/tsrycheckWeChatVerCode.action" gncode="" managetype="0" manageparam="" />
+	<item url="/gzzx/tsryunBindWechat.action" gncode="" managetype="0" manageparam="" />
+	<item url="/gzzx/tsrycheckWeidUsable.action" gncode="" managetype="0" manageparam="" />
+	
+	<item url="/gzzx/gzzxsetTsgz.action" gncode="" managetype="0" manageparam="" />
+	<item url="/gzzx/gzzxupdateTsgzRy.action" gncode="" managetype="0" manageparam="" />
+	<item url="/gzzx/gzzxchangeGzQyzt.action" gncode="" managetype="0" manageparam="" />
+	
+</jadlsoft-jaly>

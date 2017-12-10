@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fwgl>
+
+	
+
+
+	<!-- 根据数据接口ID删除数据接口参数 -->
+	<update id="deleteSjjkParamByJkid">
+		<![CDATA[
+			delete from t_fwgl_sjjkparam t where jkid = :jkid 
+		]]>
+	</update>
+	<!-- 根据接口ID获取接口参数 -->
+	<select id="getSjjkParamListBySjjkId">
+		<![CDATA[
+			select * from t_fwgl_sjjkparam t where jkid = :jkid 
+		]]>
+	</select>
+	
+	<!-- 根据应用ID获取服务列表 -->
+	<select id="getFwListByYyid">
+		<![CDATA[
+			select * from t_fwgl_fw t where yyid = :yyid and zt = :zt
+		]]>
+	</select>
+	
+	<!-- 根据应用ID获取数据接口列表 -->
+	<select id="getSjjkListByYyid">
+		<![CDATA[
+			select * from t_fwgl_sjjk t where yyid = :yyid and zt = :zt
+		]]>
+	</select>
+	
+	<!-- 剔除服务ID获取服务列表 -->
+	<select id="getFwListExceptId">
+		<![CDATA[
+			select * from t_fwgl_fw t where id != :id and zt = :zt 
+		]]>
+	</select>
+	
+	<!-- 根据服务ID删除服务依赖关系 -->
+	<update id="removeFeylgx">
+		<![CDATA[
+			delete from T_FWGL_FWYLGX t where fwid = :fwid 
+		]]>
+	</update>
+	
+	<!-- 根据服务ID删除服务授权 -->
+	<update id="removeFwsq">
+		<![CDATA[
+			delete from t_fwgl_fwsq t where fwid = :fwid 
+		]]>
+	</update>
+	<!-- 根据服务ID获取服务依赖关系 -->
+	<select id="getFwgxListFwid">
+		<![CDATA[
+			select * from t_fwgl_fwylgx t where fwid = :fwid 
+		]]>
+	</select>
+	
+	<!-- 获取所有服务 -->
+	<select id="getAllFwList">
+		<![CDATA[
+			select a.*,b.mc fwfl_dicvalue from t_fwgl_fw a,t_dm_fwfl b where a.fwfl = b.dm(+) and  a.zt = :zt and a.fwzt = :fwzt 
+			
+		]]>
+	</select>
+	
+	<!-- 获取所有服务依赖关系 -->
+	<select id="getAllFwylgxList">
+		<![CDATA[
+			select b.* from t_fwgl_fw a,t_fwgl_fwylgx b where a.fwid = b.fwid and a.zt = :zt and a.fwzt = :fwzt 
+		]]>
+	</select>
+	
+	<!-- 根据服务URL获取服务Map -->
+	<select id="getFwBeanByUri">
+		<![CDATA[
+			select * from t_fwgl_fw t where uri = :uri and  zt = :zt and fwzt = :fwzt 
+		]]>
+	</select>
+	
+	<!-- 获取所有外部服务 -->
+	<select id="getAllWbfwList">
+		<![CDATA[
+			select * from t_fwgl_wbfw t where zt = :zt and fwzt = :fwzt 
+		]]>
+	</select>
+	
+	<!-- 根据服务ID获取服务Map -->
+	<select id="getFwBeanByFwid">
+		<![CDATA[
+			select * from t_fwgl_fw t where fwid = :fwid and  zt = :zt and fwzt = :fwzt 
+		]]>
+	</select>
+	
+	<!-- 根据服务ID获取外部服务Map -->
+	<select id="getWbfwBeanByFwid">
+		<![CDATA[
+			select * from t_fwgl_wbfw t where fwid = :fwid and  zt = :zt and fwzt = :fwzt 
+		]]>
+	</select>
+	
+	<!-- 根据服务ID获取授权列表 -->
+	<select id="getFwsqListByFwid">
+		<![CDATA[
+			select * from t_fwgl_fwsq t where fwid = :fwid  and zt = :zt order by sqfw
+		]]>
+	</select>
+	
+	<!-- 内部服务访问统计 -->
+	<select id="getNbFwTj">
+		<![CDATA[
+			select a.fwid,a.fwname,count(b.fwid) fwcs from t_fwgl_fw a,(select * from t_fwgl_fwlog where fwly = :fwly) b  where a.fwid = b.fwid(+) and a.zt = :zt and a.fwzt = :fwzt group by a.fwid,a.fwname order by fwcs desc
+		]]>
+	</select>
+	
+	<!-- 获取外部服务访问统计 -->
+	<select id="getWbFwTj">
+		<![CDATA[
+			select dwdm,dwmc,count(a.dwdm) jdsl from t_fwgl_wbfw a where   a.zt = :zt and a.fwzt = :fwzt  group by dwdm,dwmc  order by jdsl 
+			
+		]]>
+	</select>
+	
+	<!-- 根据条数和服务来源获取服务列表 -->
+	<select id="getFwListByTopNumAndFwly">
+		<![CDATA[
+			select a.*,a.fwly lylx from (select b.* from t_fwgl_fwlog b  where 1=1  :fwly :fwid order by qqsj desc) a where 1=1 :topNum
+			
+		]]>
+	</select>
+	
+	
+	<!--  根据单位代码获取接入节点列表 -->
+	<select id="getWbfwListByDwdm">
+		<![CDATA[
+			select a.dwdm,a.dwmc,a.fwid,a.fwname,a.fwljzt,a.sqr,a.sqrxm from t_fwgl_wbfw a  where  a.zt = :zt and a.fwzt = :fwzt and  dwdm = :dwdm order by a.id
+			
+		]]>
+	</select>
+	
+	
+	
+</fwgl>

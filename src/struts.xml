@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+	<constant name="struts.multipart.maxSize" value="1104857600" />
+	<package name="mbfwzx" extends="struts-default">
+		<interceptors>
+            <interceptor name="sessionInterceptor" 
+                class="com.core.jadlsoft.struts.interceptor.SessionInterceptor">
+            </interceptor>
+            
+            <interceptor name="commonSuccessInterceptor" 
+                class="com.core.jadlsoft.struts.interceptor.CommonSuccessInterceptor">
+            </interceptor>
+            
+            <!-- 拦截器栈 -->
+            <interceptor-stack name="fwzxdefault">
+                <interceptor-ref name="defaultStack" />
+                <interceptor-ref name="sessionInterceptor"/>
+                <interceptor-ref name="commonSuccessInterceptor"/>
+            </interceptor-stack>
+        </interceptors>   
+        <default-interceptor-ref name="fwzxdefault"></default-interceptor-ref>
+
+		<global-results>
+            <result name="login" type="redirect">/index/indexmonitorMain.action?ptlx=01</result>
+        </global-results>
+        
+		<action name="index">
+			<result>/index/index.jsp</result>
+		</action> 
+
+		<action name="dologin*" method="{1}" class="loginAction">
+			<result type="chain">index</result>
+			<result name="failure" type="redirect">/login.jsp</result>
+			<result name="input">/login.jsp</result>
+		</action>
+		
+		<action name="commonlist" class="commonListAction">
+			<result name="Savelist">/save/savelist.jsp</result>
+			<result name="Continue">/save/saveselectlist.jsp</result>
+			<result name="Commonlist">/common/commonlist.jsp</result>
+			<result name="success">/common/commonlist.jsp</result>
+		</action>
+
+		<action name="commonsuccess" class="commonsuccessAction">
+			<result type="redirect">/save/commonsuccess.jsp</result>
+		</action>
+	</package>
+	
+	<package name="ajax" extends="json-default" namespace="/ajax">
+   		<action name="ajax_*" class="ajaxAction" method="{1}">
+		    <result type="json">
+		    	<param name="root">result</param>
+		   	</result>
+   		</action>
+   	</package>
+   	
+	<package name="search" extends="struts-default" namespace="/search">
+		<action name="search" class="com.core.jadlsoft.struts.action.search.SearchAction">
+			<result name="success">/search/searchresult.jsp</result>
+			<result name="successMethod">/search/searchresultmethod.jsp</result>
+			<result name="successMulti">/search/searchresultmulti.jsp</result>
+			<result name="successMultitwo">/search/searchresultmultitwo.jsp</result>
+		</action>
+	</package>
+	
+
+	<!-- 默认系统配置,由于类名是大写,jsp是小写,无法自动转换,*Action必须在application中通过注入转换成小写名称 -->
+	<package name="sys_default" extends="mbfwzx" >
+ 		<!-- 保存 -->
+   		<action name="*/*save" method="save" class="{2}Action">
+   			<result name="edit">/{1}/{2}edit.jsp</result>
+			<result name="list" type="redirect">/{1}/{2}list.action</result>
+		</action>
+		<!-- 修改 -->
+		<action name="*/*edit" method="edit" class="{2}Action">
+			<result name="edit">/{1}/{2}edit.jsp</result>
+		</action>
+		<action name="*/*get" method="get" class="{2}Action">
+			<result name="edit">/{1}/{2}edit.jsp</result>
+		</action>
+   		<action name="*/*update" method="update" class="{2}Action">
+   			<result name="edit">/{1}/{2}edit.jsp</result>
+			<result name="list" type="redirect">/{1}/{2}list.action</result>
+		</action>
+		<!-- 删除 -->
+		<action name="*/*delete" method="delete" class="{2}Action">
+			<result name="list" type="redirect">/{1}/{2}list.action</result>
+		</action>
+		<!-- 查看 -->
+   		<action name="*/*view" method="view" class="{2}Action">
+			<result name="view">/{1}/{2}view.jsp</result>
+		</action>
+   		<action name="*/*_*" method="{3}" class="{2}Action">
+   			<result name="ok">/{1}/{2}{3}.jsp</result> 
+		    <result name="success">/save/commonsuccess.jsp</result> 
+		</action>
+		
+			 
+	</package>
+	
+	<package name="logFile" extends="struts-default" namespace="/logFile">
+		<action name="search" class="com.core.jadlsoft.struts.action.search.SearchAction">
+			<result name="success">/search/searchresult.jsp</result>
+			<result name="successMethod">/search/searchresultmethod.jsp</result>
+			<result name="successMulti">/search/searchresultmulti.jsp</result>
+			<result name="successMultitwo">/search/searchresultmultitwo.jsp</result>
+		</action>
+	</package>
+	<!-- 系统管理 -->
+	<package name="xtgl" extends="json-default" namespace="/xtgl">
+		<!-- 系统action -->
+		<action name="system*" method="{1}" class="systemAction">
+			<result name="download">/xtgl/download.jsp</result>
+		</action>	
+		<!-- 用户action -->
+		<action name="user*" method="{1}" class="userAction">
+			<result name="edit">/xtgl/userEdit.jsp</result>	
+			<result name="view">/xtgl/userView.jsp</result>	
+			<result name="list" type="redirect">/xtgl/userlist.action</result>	
+		</action>	
+		<!-- 角色action -->
+		<action name="role*" method="{1}" class="roleAction">
+			<result name="view">/xtgl/roleView.jsp</result>	
+			<result name="edit">/xtgl/roleEdit.jsp</result>	
+			<result name="list" type="redirect">/xtgl/rolelist.action</result>	
+		</action>
+		<!-- 权限action -->
+		<action name="permiss*" method="{1}" class="permissAction">
+			<result name="view">/xtgl/permissView.jsp</result>	
+			<result name="edit">/xtgl/permissEdit.jsp</result>	
+			<result name="list" type="redirect">/xtgl/permisslist.action</result>	
+		</action>
+		<!-- 功能菜单action -->
+		<action name="gnlb*" method="{1}" class="gnlbAction">
+			<result name="view">/xtgl/gnlbView.jsp</result>	
+			<result name="edit">/xtgl/gnlbEdit.jsp</result>	
+			<result name="list" type="redirect">/xtgl/gnlblist.action</result>	
+		</action>
+	</package>
+		
+		
+	<package name="jqgl" extends="json-default" namespace="/jqgl">
+		<!-- 集群管理 -->
+		<action name="jq*" method="{1}" class="jqAction">
+			<result name="edit">/jqgl/jqedit.jsp</result>	
+			<result name="list" type="redirect">/jqgl/jqlist.action</result>	
+		</action>	
+		
+	</package>
+		
+	<package name="fwqgl" extends="json-default" namespace="/fwqgl">
+		<!-- 服务器管理 -->
+		<action name="fwq*" method="{1}" class="fwqAction">
+			<result name="edit">/fwqgl/fwqedit.jsp</result>	
+			<result name="list" type="redirect">/fwqgl/fwqlist.action</result>	
+			<result name="tglist" type="redirect">/fwqgl/tgfwqlist.action</result>
+			<result name="logview">/fwqgl/logview.jsp</result>
+		</action>	
+		
+	</package>
+	
+	<package name="nginx" extends="json-default" namespace="/nginx">
+		<!-- nginx服务器管理 -->
+		<action name="nginx*" method="{1}" class="nginxAction">
+			<result name="edit">/nginx/nginxEdit.jsp</result>	
+			<result name="list" type="redirect">/nginx/nginxlist.action</result>	
+			<result name="configlist">/nginx/nginxconfig.action</result>	
+			<result name="configlistPage">/nginx/nginxConfigList.jsp</result>	
+			<result name="configEdit">/nginx/nginxConfigEdit.jsp</result>	
+			<result name="sfbgzpz">/nginx/sfbgzpz.jsp</result>	
+			<result name="logview">/nginx/logview.jsp</result>	
+		</action>
+	</package>
+	
+	<package name="yygl" extends="json-default" namespace="/yygl">
+		<!-- 应用控制器 -->
+		<action name="yycontrol*" method="{1}" class="YyControlAction">
+			<result name="list" type="redirect">/yygl/yylist.action</result>	
+		</action>
+		<!-- 应用管理 -->
+		<action name="yy*" method="{1}" class="yyAction">
+			<result name="edit">/yygl/yyedit.jsp</result>	
+			<result name="list" type="redirect">/yygl/yylist.action</result>	
+			<result name="tglist" type="redirect">/yygl/tgyylist.action</result>
+		</action>	
+		
+	</package>
+	<package name="fwgl" extends="json-default" namespace="/fwgl">
+		<!-- 服务管理 -->
+		<action name="fw*" method="{1}" class="fwAction">
+			<result name="edit">/fwgl/fwedit.jsp</result>	
+			<result name="gxedit">/fwgl/fwgxedit.jsp</result>
+			
+			<result name="wbfwsh">/fwgl/fwshedit.jsp</result>	
+			<result name="sq">/fwgl/fwsq.jsp</result>	
+			<result name="wbfwlist" type="redirect">/fwgl/fwshlist.action</result>	
+			<result name="list" type="redirect">/fwgl/fwlist.action</result>	
+			
+			<result name="dledit">/fwgl/fwdledit.jsp</result>
+			<result name="dllist" type="redirect">/fwgl/fwdllist.action</result>	
+		</action>	
+		<!-- 数据接口管理 -->
+		<action name="sjjk*" method="{1}" class="sjjkAction">
+			<result name="edit">/fwgl/sjjkedit.jsp</result>	
+			<result name="list" type="redirect">/fwgl/sjjklist.action</result>	
+		</action>	
+	</package>
+	
+	<package name="cache" extends="json-default" namespace="/cache">
+		<!-- 缓存管理 -->
+		<action name="cache*" method="{1}" class="cacheAction">
+		</action>	
+	</package>
+	
+	<package name="index" extends="struts-default" namespace="/index">
+		<!-- 首页管理 -->
+		<action name="index*" method="{1}" class="indexAction">
+			<!-- <result name="main">/index/mymain.jsp</result> -->
+			<result name="main">/index/monitor.jsp</result>
+			<result name="monitorMain">/index/monitormain.jsp</result>
+		</action>	
+	</package>
+	
+	<package name="servicebus" extends="json-default" namespace="/servicebus">
+		<!-- 服务总线 -->
+		<action name="*" method="{1}" class="serviceBusAction">
+			
+		</action>	
+	</package>
+	
+	<package name="gzzx" extends="json-default" namespace="/gzzx">
+		<!-- 故障中心 -->
+		<action name="gzzx*" method="{1}" class="gzzxAction">
+			<result name="fwqgzzxlist" type="redirect">/gzzx/fwqgzzxlist.action</result>	
+			<result name="yygzzxlist" type="redirect">/gzzx/yygzzxlist.action</result>
+			<result name="yyyxgzzxlist" type="redirect">/gzzx/yyyxgzzxlist.action</result>
+			<result name="gzpushlist" type="redirect">/gzzx/gzpushlist.action</result>
+			<result name="settsgz">/gzzx/settsgz.jsp</result>
+		</action>	
+		<!-- 推送人员 -->
+		<action name="tsry*" method="{1}" class="tsryAction">
+			<result name="list" type="redirect">/gzzx/gztsrylist.action</result>
+			<result name="edit">/gzzx/tsryedit.jsp</result>
+		</action>
+	</package>
+	 
+	
+</struts>

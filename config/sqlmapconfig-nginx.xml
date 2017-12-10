@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nginx>
+	<!-- 根据Nginx服务器的id删除该服务器下的配置信息 -->
+	<update id="deleteNginxConfigByNginxId">
+		<![CDATA[
+			update t_nginx_config c set zt = :zt where c.nginxid = :nginxid
+		]]>
+	</update>
+	
+	<!-- 通过应用id获取所有Nginx服务器（应用作为该Nginx的代理应用） -->
+	<select id="getNginxListByYyid">
+		<![CDATA[
+			select n.* from t_nginx_config conf, t_nginx_jbxx n where conf.dlyy like :yyid
+				  and conf.zt = :zt
+				  and n.zt = :zt
+		]]>
+	</select>
+	
+	<!-- 根据nginxid删除Nginx集群记录 -->
+	<update id="deleteNginxJqByNginxId">
+		<![CDATA[
+			delete from t_nginx_jq nj
+				where nj.nginxid = :nginxid
+		]]>
+	</update>
+	
+	<!-- 根据集群id删除Nginx集群记录 -->
+	<update id="deleteNginxJqByJqId">
+		<![CDATA[
+			delete from t_nginx_jq nj
+				where nj.jqid = :jqid
+		]]>
+	</update>
+	
+	<!-- 根据集群id获取Nginx列表 -->
+	<select id="getNginxListByJqid">
+		<![CDATA[
+			select a.*
+			  from t_nginx_jbxx a, t_nginx_jq b
+			 where a.id = b.nginxid
+			   and a.zt = :zt
+			   and b.jqid = :jqid
+		]]>
+	</select>
+	
+	<!-- 根据服务器id获取Nginx列表 -->
+	<select id="getNginxListByFwqid">
+		<![CDATA[
+			select distinct a.*
+			  from t_nginx_jbxx a, t_nginx_jq b, t_jq_jbxx c, t_jq_fwq d, t_fwqgl_fwq e
+			 where a.id = b.nginxid
+			   and b.jqid = c.id
+			   and c.id = d.jqid
+			   and d.fwqid = e.id
+			      
+			   and a.zt = :zt
+			   and c.zt = :zt
+			   and e.zt = :zt
+			   and e.id = :fwqid
+		]]>
+	</select>
+	
+	<!-- 根据应用id获取Nginx列表 -->
+	<select id="getNginxListByYyid">
+		<![CDATA[
+			select distinct a.*
+			  from t_nginx_jbxx a, t_nginx_jq b, t_jq_jbxx c, t_jq_fwq d, t_fwqgl_fwq e, t_yygl_yyyxjl f, t_yygl_yy g
+			 where a.id = b.nginxid
+			   and b.jqid = c.id
+			   and c.id = d.jqid
+			   and d.fwqid = e.id
+			   and f.fwqid = e.id
+			   and f.yyid = g.id
+			      
+			   and a.zt = :zt
+			   and c.zt = :zt
+			   and e.zt = :zt
+			   and g.zt = :zt
+			   and g.id = :yyid
+		]]>
+	</select>
+	
+	<!-- 根据Nginxid删除试发布配置信息 -->
+	<update id="deleteSfbpzxxByNid">
+		<![CDATA[
+			delete from t_nginx_sfbpz ns
+				where ns.nginxid = :nid
+		]]>
+	</update>
+	
+	<!-- 批量添加试发布配置信息 -->
+	<update id="saveSfbpzxx">
+		<![CDATA[
+			insert into t_nginx_sfbpz(id,nginxid,regex) values(:id,:nginxid,:regex)
+		]]>
+	</update>
+	
+	<!-- 根据服务器ID获取要更新配置的Nginx -->
+	<select id="getListByFwqid">
+		<![CDATA[
+			select distinct c.*
+			  from t_yygl_yyyxjl a, t_nginx_jq b, t_nginx_jbxx c
+			 where a.yyzt = :yyzt
+			   and a.jqid = b.jqid
+			   and b.nginxid = c.id
+			   and c.zt = '0'
+			   and a.fwqid = :fwqid
+		]]>
+	</select>
+	
+	<!-- 根据集群ID获取要更新配置的Nginx -->
+	<select id="getListByJqid">
+		<![CDATA[
+			select a.*
+			  from t_nginx_jbxx a, t_nginx_jq b
+			 where a.id = b.nginxid
+			   and a.zt = :zt
+			   and b.jqid = :jqid
+		]]>
+	</select>
+	
+	<!-- 获取所有更新失败的Nginx信息 -->
+	<select id="getGxsbList">
+		<![CDATA[
+			select * from t_nginx_jbxx a
+				where a.gxzt = :gxzt
+		]]>
+	</select>
+</nginx>

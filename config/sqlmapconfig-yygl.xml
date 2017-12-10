@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<yygl>
+	<!-- 根据应用名称和war包名称获取应用 -->
+	<select id="getYyListByName">
+		<![CDATA[
+			select * from t_yygl_yy  where warname =:warname and  zt =:zt and id !=:id
+		]]>
+	</select>
+
+	<select id="getYyFwqsList">
+
+		<!-- <![CDATA[
+			select yy.id yyid, yy.yyname yyname, xx.fwqips fwqips
+			  from t_yygl_yy yy,
+			       (select y.yyname, wm_concat(y.id) yyid, wm_concat(fwqip) fwqips
+			          from t_yygl_yy y, t_yygl_yyyxjl x
+			         where y.id = x.yyid
+			           and y.zt = '0'
+			         group by y.yyname) xx
+			 where yy.yyname = xx.yyname
+			   and yy.zt = '0'
+		]]> -->
+		<![CDATA[
+			select yy.id yyid, yy.yyname yyname, xx.fwqips fwqips
+			  from t_yygl_yy yy,
+			       (select y.yyname, wm_concat(y.id) yyid, wm_concat(fwqip) fwqips
+			          from t_yygl_yy y, t_yygl_yyyxjl x, t_fwqgl_fwq f
+			         where y.id = x.yyid
+			           and y.zt = '0'
+			           and x.fwqid = f.id
+			         group by y.yyname) xx
+			 where yy.yyname = xx.yyname
+			   and yy.zt = '0'
+		]]>
+	</select>
+	
+	<!-- 根据服务器id获取应用信息集合 -->
+	<select id="getYyInfoListByFwqid">
+		<![CDATA[
+			select y.*,j.yyyxzt,j.yyzt from t_yygl_yy y, t_yygl_yyyxjl j
+				where y.id = j.yyid 
+				and j.fwqid = :fwqid
+				and y.zt = :zt
+		]]>
+	</select>
+	
+	<!-- 根据应用id获取应用信息集合 -->
+	<select id="getYyInfoListByYyid">
+		<![CDATA[
+			
+				select y.*, j.yyid,j.id yxjlid, j.fwqid, j.yyyxzt, j.yyzt, j.yyyxztinfo, j.jqid,j.fbzt,j.version,a.fwqip,a.fwqym,a.dk,a.fwqstatus 
+				  from t_yygl_yy y, t_yygl_yyyxjl j, t_fwqgl_fwq a, t_jq_jbxx b
+				 where y.id = j.yyid
+				   and j.fwqid = a.id
+				   and j.jqid = b.id
+				   and a.zt = :zt and y.zt = :zt and b.zt = :zt
+				   and j.jqid is not null
+				   and y.id = :yyid
+		]]>
+	</select>
+	
+	<!-- 根据应用的id获取服务器ip集合 -->
+	<select id="getFwqListByYyid">
+		<![CDATA[
+			select f.fwqip,x.yyyxzt from t_yygl_yyyxjl x, t_fwqgl_fwq f where x.yyid = :yyid and x.fwqid = f.id
+		]]>
+	</select>
+	
+	<!-- 获取所有应用运行记录的信息 -->
+	<select id="getYyyxjlInfo">
+		<![CDATA[
+			select jl.*,f.fwqym,f.dk from t_yygl_yyyxjl jl, t_fwqgl_fwq f
+				where jl.fwqid = f.id
+				and f.zt = :zt
+				and jl.yyzt = :zt
+		]]>
+	</select>
+	
+	<!-- 获取所有应用运行记录的信息 -->
+	<select id="getJqListByYyid">
+		<![CDATA[
+			select distinct a.* from t_jq_jbxx a,t_yygl_yyyxjl b
+				where a.id = b.jqid
+				and a.zt = :zt
+				and b.yyid = :yyid
+		]]>
+	</select>
+	
+</yygl>

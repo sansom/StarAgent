@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jqgl>
+	<!-- 根据服务器id获取集群列表 -->
+	<select id="getJqListByFwqId">
+		<![CDATA[
+			select a.* from t_jq_jbxx a, t_yygl_yyyxjl b
+				where a.id = b.jqid
+				and a.zt = :zt
+				and b.fwqid = :fwqid
+				and b.yyzt = :yyzt
+		]]>
+	</select>
+	
+	<!-- 根据服务器id删除集群服务器记录 -->
+	<update id="deleteJqFwqByFwqId">
+		<![CDATA[
+			delete from t_jq_fwq jf
+				where jf.fwqid = :fwqid
+		]]>
+	</update>
+	
+	<!-- 根据集群id删除集群服务器记录 -->
+	<update id="deleteJqFwqByJqId">
+		<![CDATA[
+			delete from t_jq_fwq jf
+				where jf.jqid = :jqid
+		]]>
+	</update>
+	
+	<!-- 获取nginx所管理的集群集合-->
+	<select id="getjqListByNginxId">
+		<![CDATA[
+			select j.*,nj.nginxid from t_jq_jbxx j, t_nginx_jq nj 
+				where j.id = nj.jqid
+				and j.zt = :zt
+				and nj.nginxid = :nid
+		]]>
+	</select>
+	
+	<!-- 根据nginxid删除集群服务器记录 -->
+	<update id="deleteNginxJqByNid">
+		<![CDATA[
+			delete from t_nginx_jq nj
+				where nj.nginxid = :nid
+		]]>
+	</update>
+	
+	<!-- 批量插入Nginx集群信息 -->
+	<update id="insert_t_nginx_jq">
+		<![CDATA[
+			insert into t_nginx_jq (id,nginxid,jqid) values(?,?,?)
+		]]>
+	</update>
+	
+	<!-- 通过nginxid获取对应的集群、服务器、应用信息-->
+	<select id="getJqFwqYyByNginxId">
+		<![CDATA[
+			select nj.nginxid,c.* from t_nginx_jq nj,(
+			       select a.id jqid,a.jqname, a.fwym, a.fwdk,e.id yyid,e.yyname,e.warname,c.*,d.fbzt
+			  from t_jq_jbxx a, t_jq_fwq b, t_fwqgl_fwq c, t_yygl_yyyxjl d, t_yygl_yy e
+			 where a.id = b.jqid
+			   and a.zt = :zt
+			   and b.fwqid = c.id
+			   and c.zt = :zt
+			   and c.id = d.fwqid
+			   and d.yyid = e.id
+			   and d.jqid = b.jqid
+			   and d.yyzt = :yyzt
+			   and e.zt = :zt order by jqname,yyname
+			) c
+			where nj.jqid = c.jqid
+			and nginxid = :nid
+		]]>
+	</select>
+	
+	<!-- 获取应用-服务器-集群信息 -->
+	<select id="getJqYyInfoList">
+		<![CDATA[
+			select a.yyid,
+			       a.fwqid,
+			       a.yyyxzt,
+			       b.fwqname,
+			       b.fwqip,
+			       b.dk,
+			       d.id jqid,
+			       d.jqname,
+			       d.fwym,
+			       d.fwdk
+			  from t_yygl_yyyxjl a, t_fwqgl_fwq b, t_jq_fwq c, t_jq_jbxx d
+			 where a.yyzt = '0'
+			   and a.fwqid = b.id
+			   and b.zt = '0'
+			   and b.id = c.fwqid
+			   and c.jqid = d.id
+			   and d.zt = '0'
+		]]>
+	</select>
+	
+	<!-- 获取所有可用服务器，只要有所在集群就为不可用的 -->
+	<select id="getKyFwqList">
+		<![CDATA[
+			select *
+			  from t_fwqgl_fwq b
+			 where b.zt = :zt
+			   and b.id not in (select distinct a.fwqid from t_jq_fwq a where a.jqid = :jqid)
+		]]>
+	</select>
+	
+	<!-- 获取集群下面的服务器 -->
+	<select id="getFwqListByJqid">
+		<![CDATA[
+			select b.*
+			  from t_fwqgl_fwq b,t_jq_fwq a
+			 where a.fwqid = b.id
+			 and b.zt = :zt
+			 and a.jqid = :jqid
+		]]>
+	</select>
+	
+	<!-- 获取集群下面未启动的应用 -->
+	<select id="getWqdYyByJqid">
+		<![CDATA[
+			select *
+			  from t_yygl_yy a, t_yygl_yyyxjl b
+			 where a.id = b.yyid
+			   and a.zt = '0'
+			   and b.jqid = :jqid
+			   and b.yyzt = :qdzt
+		]]>
+	</select>
+	
+	<!-- 从集群运行记录中获取集群下面的应用 -->
+	<select id="getYyListByJqidyyjl">
+		<![CDATA[
+			select distinct b.*
+			  from t_yygl_yyyxjl a, t_yygl_yy b
+			 where a.yyid = b.id
+			   and b.zt = :zt
+			   and a.jqid = :jqid
+		]]>
+	</select>
+	
+	<!-- 根据应用id获取集群信息 -->
+	<select id="getJqListByYyid">
+		<![CDATA[
+			select distinct a.* from t_jq_jbxx a , t_yygl_yyyxjl b
+				where a.id = b.jqid
+				and a.zt = :zt
+				and b.yyid = :yyid
+		]]>
+	</select>
+	
+	<!-- 根据集群id和服务器id删除运行记录表中的数据 -->
+	<update id="removeYyyxjlByJq">
+		update t_yygl_yyyxjl a
+			set a.jqid = null
+			where a.fwqid = :fwqid
+		   and a.jqid = :jqid
+	</update>
+	
+</jqgl>
